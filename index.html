@@ -8,186 +8,186 @@
 <style>
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 body{
-font-family:'Segoe UI',sans-serif;
-background:linear-gradient(135deg,#667eea,#764ba2);
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  padding:20px;
 }
 
 .container{
-width:100%;
-max-width:520px;
+  width:100%;
+  max-width:520px;
 }
 
 /* Section Box */
 
 .section{
-margin-bottom:30px;
-padding:20px;
-border-radius:12px;
-color:white;
-background-size:cover;
-background-position:center;
-position:relative;
-overflow:hidden;
-box-shadow:0 6px 15px rgba(0,0,0,0.2);
+  margin-bottom:30px;
+  padding:20px;
+  border-radius:12px;
+  color:white;
+  background-size:cover;
+  background-position:center;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 6px 15px rgba(0,0,0,0.2);
 }
 
 /* Dark overlay */
 
 .section::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.45);
-z-index:0;
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.45);
+  z-index:0;
 }
 
 .section *{
-position:relative;
-z-index:1;
+  position:relative;
+  z-index:1;
 }
 
 /* Background Images */
 
 .section:nth-child(1){
-background-image:url("https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b");
+  background-image:url("https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b");
 }
 
 .section:nth-child(2){
-background-image:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
+  background-image:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
 }
 
 .section:nth-child(3){
-background-image:url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429");
+  background-image:url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429");
 }
 
 /* Headings */
 
 h2{
-text-align:center;
-margin-bottom:5px;
-color:white;
+  text-align:center;
+  margin-bottom:5px;
+  color:white;
 }
 
 .quote{
-text-align:center;
-font-size:13px;
-color:#ddd;
-font-style:italic;
-margin-bottom:15px;
+  text-align:center;
+  font-size:13px;
+  color:#ddd;
+  font-style:italic;
+  margin-bottom:15px;
 }
 
 /* Input Box */
 
 .inputBox{
-display:flex;
-gap:10px;
+  display:flex;
+  gap:10px;
 }
 
 input{
-flex:1;
-padding:10px;
-border-radius:8px;
-border:none;
-font-size:14px;
-outline:none;
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  font-size:14px;
+  outline:none;
 }
 
 button{
-padding:10px 16px;
-border:none;
-border-radius:8px;
-background:#667eea;
-color:white;
-font-weight:600;
-cursor:pointer;
-transition:0.3s;
+  padding:10px 16px;
+  border:none;
+  border-radius:8px;
+  background:#667eea;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 button:hover{
-background:#5563d1;
-transform:scale(1.05);
+  background:#5563d1;
+  transform:scale(1.05);
 }
 
 /* Task List */
 
 ul{
-list-style:none;
-margin-top:15px;
+  list-style:none;
+  margin-top:15px;
 }
 
 li{
-padding:12px;
-margin-top:10px;
-background:white;
-border-radius:8px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 2px 6px rgba(0,0,0,0.2);
-transition:0.2s;
-color:black;
+  padding:12px;
+  margin-top:10px;
+  background:white;
+  border-radius:8px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  transition:0.2s;
+  color:black;
 }
 
 li:hover{
-transform:scale(1.02);
+  transform:scale(1.02);
 }
 
 .task-left{
-display:flex;
-align-items:center;
-gap:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
 .number{
-font-weight:bold;
-color:#667eea;
+  font-weight:bold;
+  color:#667eea;
 }
 
 .completed{
-background:#d4edda;
-text-decoration:line-through;
-color:#555;
+  background:#d4edda;
+  text-decoration:line-through;
+  color:#555;
 }
 
 .actions{
-display:flex;
-gap:8px;
-align-items:center;
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
 
 .completeBtn{
-background:#28a745;
-padding:6px 10px;
-border-radius:6px;
-font-size:12px;
+  background:#28a745;
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:12px;
 }
 
 .completeBtn:hover{
-background:#1f8c3a;
+  background:#1f8c3a;
 }
 
 .deleteCross{
-cursor:pointer;
-font-size:16px;
-transition:0.2s;
+  cursor:pointer;
+  font-size:16px;
+  transition:0.2s;
 }
 
 .deleteCross:hover{
-transform:scale(1.3);
+  transform:scale(1.3);
 }
 
 </style>
@@ -258,75 +258,99 @@ transform:scale(1.3);
 
 <script>
 
+function saveTasks(listId){
+  let tasks=[];
+  document.querySelectorAll("#"+listId+" li").forEach(li=>{
+    tasks.push({
+      text: li.querySelector("span:nth-child(2)").innerText,
+      completed: li.classList.contains("completed")
+    });
+  });
+  localStorage.setItem(listId, JSON.stringify(tasks));
+}
+
+function loadTasks(listId){
+  let tasks=JSON.parse(localStorage.getItem(listId)||"[]");
+  tasks.forEach(task=>{
+    addTaskFromStorage(task.text, task.completed, listId);
+  });
+}
+
 function updateNumbers(listId){
+  let tasks=document.querySelectorAll("#"+listId+" li");
+  tasks.forEach((task,index)=>{
+    task.querySelector(".number").innerText=index+1;
+  });
+  saveTasks(listId);
+}
 
-let tasks=document.querySelectorAll("#"+listId+" li");
+function addTaskFromStorage(text, completed, listId){
+  let li=document.createElement("li");
 
-tasks.forEach((task,index)=>{
-task.querySelector(".number").innerText=index+1;
-});
+  let left=document.createElement("div");
+  left.className="task-left";
 
+  let number=document.createElement("span");
+  number.className="number";
+
+  let taskText=document.createElement("span");
+  taskText.innerText=text;
+
+  taskText.onclick=function(){
+    li.classList.toggle("completed");
+    saveTasks(listId);
+  }
+
+  left.appendChild(number);
+  left.appendChild(taskText);
+
+  let actions=document.createElement("div");
+  actions.className="actions";
+
+  let completeBtn=document.createElement("button");
+  completeBtn.innerText="Completed";
+  completeBtn.className="completeBtn";
+
+  completeBtn.onclick=function(){
+    li.classList.add("completed");
+    saveTasks(listId);
+  }
+
+  let deleteCross=document.createElement("span");
+  deleteCross.innerHTML="❌";
+  deleteCross.className="deleteCross";
+
+  deleteCross.onclick=function(){
+    li.remove();
+    updateNumbers(listId);
+  }
+
+  actions.appendChild(completeBtn);
+  actions.appendChild(deleteCross);
+
+  li.appendChild(left);
+  li.appendChild(actions);
+
+  if(completed) li.classList.add("completed");
+
+  document.getElementById(listId).appendChild(li);
+
+  updateNumbers(listId);
 }
 
 function addTask(inputId,listId){
-
-let input=document.getElementById(inputId);
-
-if(input.value===""){
-alert("Enter something");
-return;
+  let input=document.getElementById(inputId);
+  if(input.value===""){
+    alert("Enter something");
+    return;
+  }
+  addTaskFromStorage(input.value,false,listId);
+  input.value="";
 }
 
-let li=document.createElement("li");
-
-let left=document.createElement("div");
-left.className="task-left";
-
-let number=document.createElement("span");
-number.className="number";
-
-let text=document.createElement("span");
-text.innerText=input.value;
-
-text.onclick=function(){
-li.classList.toggle("completed");
-}
-
-left.appendChild(number);
-left.appendChild(text);
-
-let actions=document.createElement("div");
-actions.className="actions";
-
-let completeBtn=document.createElement("button");
-completeBtn.innerText="Completed";
-completeBtn.className="completeBtn";
-
-completeBtn.onclick=function(){
-li.classList.add("completed");
-}
-
-let deleteCross=document.createElement("span");
-deleteCross.innerHTML="❌";
-deleteCross.className="deleteCross";
-
-deleteCross.onclick=function(){
-li.remove();
-updateNumbers(listId);
-}
-
-actions.appendChild(completeBtn);
-actions.appendChild(deleteCross);
-
-li.appendChild(left);
-li.appendChild(actions);
-
-document.getElementById(listId).appendChild(li);
-
-input.value="";
-
-updateNumbers(listId);
-
+// Load tasks on page load
+window.onload=function(){
+  ["todoList","shortList","longList"].forEach(loadTasks);
 }
 
 </script>
