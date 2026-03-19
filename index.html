@@ -188,7 +188,6 @@ font-size:14px;
 .prevBtn:hover{
 background:#111;
 }
-
 </style>
 </head>
 
@@ -196,7 +195,6 @@ background:#111;
 
 <div class="container">
 
-<!-- Todo -->
 <div class="section">
 <h2>Todo List</h2>
 <div class="quote">"Small progress every day leads to big success."</div>
@@ -213,8 +211,6 @@ Load Yesterday's Tasks
 <ul id="todoList"></ul>
 </div>
 
-
-<!-- Short Goals -->
 <div class="section">
 <h2>Short Term Goals</h2>
 <div class="quote">"Focus on today's effort, tomorrow will reward you."</div>
@@ -227,8 +223,6 @@ Load Yesterday's Tasks
 <ul id="shortList"></ul>
 </div>
 
-
-<!-- Long Goals -->
 <div class="section">
 <h2>Long Term Goals</h2>
 <div class="quote">"Great achievements are built from consistent actions."</div>
@@ -269,17 +263,14 @@ localStorage.setItem(listId+'-'+todayDate(),JSON.stringify(tasks));
 }
 
 function loadTasks(listId){
-
 let tasks=JSON.parse(localStorage.getItem(listId+'-'+todayDate())||"[]");
 
 tasks.forEach(task=>{
 addTaskFromStorage(task.text,task.completed,listId);
 });
-
 }
 
 function loadPrevious(listId){
-
 let tasks=JSON.parse(localStorage.getItem(listId+'-'+yesterdayDate())||"[]");
 
 if(tasks.length===0){
@@ -292,11 +283,9 @@ document.getElementById(listId).innerHTML="";
 tasks.forEach(task=>{
 addTaskFromStorage(task.text,task.completed,listId);
 });
-
 }
 
 function updateNumbers(listId){
-
 let tasks=document.querySelectorAll("#"+listId+" li");
 
 tasks.forEach((task,index)=>{
@@ -304,7 +293,6 @@ task.querySelector(".number").innerText=index+1;
 });
 
 saveTasks(listId);
-
 }
 
 function addTaskFromStorage(text,completed,listId){
@@ -332,6 +320,7 @@ left.appendChild(taskText);
 let actions=document.createElement("div");
 actions.className="actions";
 
+/* COMPLETE */
 let completeBtn=document.createElement("button");
 completeBtn.innerText="Completed";
 completeBtn.className="completeBtn";
@@ -341,6 +330,82 @@ li.classList.add("completed");
 saveTasks(listId);
 }
 
+/* ➕ INSERT BELOW */
+let insertBtn=document.createElement("button");
+insertBtn.innerText="➕";
+insertBtn.className="completeBtn";
+
+insertBtn.onclick=function(){
+
+let newTask=prompt("Enter new task:");
+
+if(!newTask || newTask.trim()==="") return;
+
+let newLi=document.createElement("li");
+
+/* LEFT */
+let newLeft=document.createElement("div");
+newLeft.className="task-left";
+
+let newNumber=document.createElement("span");
+newNumber.className="number";
+
+let newText=document.createElement("span");
+newText.className="taskText";
+newText.innerText=newTask;
+
+newText.onclick=function(){
+newLi.classList.toggle("completed");
+saveTasks(listId);
+}
+
+newLeft.appendChild(newNumber);
+newLeft.appendChild(newText);
+
+/* ACTIONS */
+let newActions=document.createElement("div");
+newActions.className="actions";
+
+/* COMPLETE */
+let newComplete=document.createElement("button");
+newComplete.innerText="Completed";
+newComplete.className="completeBtn";
+
+newComplete.onclick=function(){
+newLi.classList.add("completed");
+saveTasks(listId);
+}
+
+/* INSERT AGAIN */
+let newInsert=document.createElement("button");
+newInsert.innerText="➕";
+newInsert.className="completeBtn";
+newInsert.onclick=insertBtn.onclick;
+
+/* DELETE */
+let newDelete=document.createElement("span");
+newDelete.innerHTML="❌";
+newDelete.className="deleteCross";
+
+newDelete.onclick=function(){
+newLi.remove();
+updateNumbers(listId);
+}
+
+newActions.appendChild(newComplete);
+newActions.appendChild(newInsert);
+newActions.appendChild(newDelete);
+
+newLi.appendChild(newLeft);
+newLi.appendChild(newActions);
+
+/* INSERT BELOW */
+li.after(newLi);
+
+updateNumbers(listId);
+}
+
+/* DELETE */
 let deleteCross=document.createElement("span");
 deleteCross.innerHTML="❌";
 deleteCross.className="deleteCross";
@@ -351,6 +416,7 @@ updateNumbers(listId);
 }
 
 actions.appendChild(completeBtn);
+actions.appendChild(insertBtn);
 actions.appendChild(deleteCross);
 
 li.appendChild(left);
@@ -361,7 +427,6 @@ if(completed) li.classList.add("completed");
 document.getElementById(listId).appendChild(li);
 
 updateNumbers(listId);
-
 }
 
 function addTask(inputId,listId){
@@ -373,8 +438,6 @@ alert("Enter something");
 return;
 }
 
-/* SPLIT MULTIPLE LINES */
-
 let tasks=input.value.split("\n");
 
 tasks.forEach(task=>{
@@ -384,7 +447,6 @@ addTaskFromStorage(task.trim(),false,listId);
 });
 
 input.value="";
-
 }
 
 window.onload=function(){
@@ -395,4 +457,3 @@ window.onload=function(){
 
 </body>
 </html>
-
