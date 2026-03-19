@@ -195,6 +195,7 @@ background:#111;
 
 <div class="container">
 
+<!-- TODO -->
 <div class="section">
 <h2>Todo List</h2>
 <div class="quote">"Small progress every day leads to big success."</div>
@@ -211,9 +212,9 @@ Load Yesterday's Tasks
 <ul id="todoList"></ul>
 </div>
 
+<!-- SHORT -->
 <div class="section">
-<h2>Short Term Goals</h2>
-<div class="quote">"Focus on today's effort, tomorrow will reward you."</div>
+<h2>Short Term Goals (1 Year)</h2>
 
 <div class="inputBox">
 <textarea id="shortInput" placeholder="Enter goals"></textarea>
@@ -223,9 +224,9 @@ Load Yesterday's Tasks
 <ul id="shortList"></ul>
 </div>
 
+<!-- LONG -->
 <div class="section">
-<h2>Long Term Goals</h2>
-<div class="quote">"Great achievements are built from consistent actions."</div>
+<h2>Long Term Goals (10 Years)</h2>
 
 <div class="inputBox">
 <textarea id="longInput" placeholder="Enter goals"></textarea>
@@ -249,25 +250,69 @@ d.setDate(d.getDate()-1);
 return d.toISOString().slice(0,10);
 }
 
+/* SAVE */
 function saveTasks(listId){
+
 let tasks=[];
 
 document.querySelectorAll("#"+listId+" li").forEach(li=>{
 tasks.push({
 text: li.querySelector(".taskText").innerText,
-completed: li.classList.contains("completed")
+completed: li.classList.contains("completed"),
+date: new Date().getTime()
 });
 });
 
-localStorage.setItem(listId+'-'+todayDate(),JSON.stringify(tasks));
+/* DIFFERENT STORAGE */
+if(listId==="shortList"){
+localStorage.setItem("shortGoals", JSON.stringify(tasks));
+}
+else if(listId==="longList"){
+localStorage.setItem("longGoals", JSON.stringify(tasks));
+}
+else{
+localStorage.setItem(listId+'-'+todayDate(), JSON.stringify(tasks));
 }
 
+}
+
+/* LOAD */
 function loadTasks(listId){
-let tasks=JSON.parse(localStorage.getItem(listId+'-'+todayDate())||"[]");
+
+let tasks=[];
+let now=new Date().getTime();
+
+/* SHORT → 1 YEAR */
+if(listId==="shortList"){
+let data=JSON.parse(localStorage.getItem("shortGoals") || "[]");
+
+tasks=data.filter(task=>{
+return (now - task.date) <= (365 * 24 * 60 * 60 * 1000);
+});
+
+localStorage.setItem("shortGoals", JSON.stringify(tasks));
+}
+
+/* LONG → 10 YEARS */
+else if(listId==="longList"){
+let data=JSON.parse(localStorage.getItem("longGoals") || "[]");
+
+tasks=data.filter(task=>{
+return (now - task.date) <= (10 * 365 * 24 * 60 * 60 * 1000);
+});
+
+localStorage.setItem("longGoals", JSON.stringify(tasks));
+}
+
+/* TODO */
+else{
+tasks=JSON.parse(localStorage.getItem(listId+'-'+todayDate()) || "[]");
+}
 
 tasks.forEach(task=>{
 addTaskFromStorage(task.text,task.completed,listId);
 });
+
 }
 
 function loadPrevious(listId){
@@ -295,6 +340,7 @@ task.querySelector(".number").innerText=index+1;
 saveTasks(listId);
 }
 
+/* ADD TASK */
 function addTaskFromStorage(text,completed,listId){
 
 let li=document.createElement("li");
@@ -330,20 +376,18 @@ li.classList.add("completed");
 saveTasks(listId);
 }
 
-/* ➕ INSERT BELOW */
+/* ➕ INSERT */
 let insertBtn=document.createElement("button");
 insertBtn.innerText="➕";
 insertBtn.className="completeBtn";
 
 insertBtn.onclick=function(){
-
 let newTask=prompt("Enter new task:");
-
 if(!newTask || newTask.trim()==="") return;
 
 let newLi=document.createElement("li");
 
-/* LEFT */
+/* SAME STRUCTURE */
 let newLeft=document.createElement("div");
 newLeft.className="task-left";
 
@@ -362,7 +406,6 @@ saveTasks(listId);
 newLeft.appendChild(newNumber);
 newLeft.appendChild(newText);
 
-/* ACTIONS */
 let newActions=document.createElement("div");
 newActions.className="actions";
 
@@ -399,7 +442,6 @@ newActions.appendChild(newDelete);
 newLi.appendChild(newLeft);
 newLi.appendChild(newActions);
 
-/* INSERT BELOW */
 li.after(newLi);
 
 updateNumbers(listId);
