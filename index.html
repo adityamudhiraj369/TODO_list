@@ -1,3 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Goals & Todo List</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{ box-sizing:border-box; margin:0; padding:0;}
+
+body{
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#667eea,#764ba2);
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:520px;
+}
+
+.section{
+margin-bottom:30px;
+padding:20px;
+border-radius:12px;
+color:white;
+background-size:cover;
+background-position:center;
+position:relative;
+overflow:hidden;
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
+}
+
+.section::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+z-index:0;
+}
+
+.section *{ position:relative; z-index:1;}
+
+.section:nth-child(1){
+background-image:url("https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b");
+}
+
+.section:nth-child(2){
+background-image:url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
+}
+
+.section:nth-child(3){
+background-image:url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429");
+}
+
+h2{
+text-align:center;
+margin-bottom:5px;
+}
+
+.quote{
+text-align:center;
+font-size:13px;
+color:#ddd;
+font-style:italic;
+margin-bottom:15px;
+}
+
+.inputBox{
+display:flex;
+gap:10px;
+}
+
+textarea{
+flex:1;
+padding:10px;
+border-radius:8px;
+border:none;
+font-size:14px;
+outline:none;
+resize:none;
+height:40px;
+}
+
+button{
+padding:10px 16px;
+border:none;
+border-radius:8px;
+background:#667eea;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#5563d1;
+}
+
+ul{
+list-style:none;
+margin-top:15px;
+}
+
+li{
+padding:12px;
+margin-top:10px;
+background:white;
+border-radius:8px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 6px rgba(0,0,0,0.2);
+color:black;
+}
+
+.task-left{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.number{
+font-weight:bold;
+color:#667eea;
+}
+
+.completed{
+background:#d4edda;
+text-decoration:line-through;
+color:#555;
+}
+
+.actions{
+display:flex;
+gap:8px;
+align-items:center;
+}
+
+.completeBtn{
+background:#28a745;
+padding:6px 10px;
+border-radius:6px;
+font-size:12px;
+}
+
+.deleteCross{
+cursor:pointer;
+font-size:16px;
+}
+
+.prevBtn{
+margin-top:10px;
+width:100%;
+padding:8px;
+border:none;
+border-radius:6px;
+background:#333;
+color:white;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- TODO -->
+<div class="section">
+<h2>Todo List</h2>
+<div class="quote">"Small progress every day leads to big success."</div>
+
+<div class="inputBox">
+<textarea id="todoInput" placeholder="Enter your tasks"></textarea>
+<button onclick="addTask('todoInput','todoList')">Add</button>
+</div>
+
+<button class="prevBtn" onclick="loadPrevious('todoList')">
+Load Yesterday's Tasks
+</button>
+
+<ul id="todoList"></ul>
+</div>
+
+<!-- SHORT -->
+<div class="section">
+<h2>Short Term Goals (1 Year)</h2>
+
+<div class="inputBox">
+<textarea id="shortInput" placeholder="Enter goals"></textarea>
+<button onclick="addTask('shortInput','shortList')">Add</button>
+</div>
+
+<ul id="shortList"></ul>
+</div>
+
+<!-- LONG -->
+<div class="section">
+<h2>Long Term Goals (10 Years)</h2>
+
+<div class="inputBox">
+<textarea id="longInput" placeholder="Enter goals"></textarea>
+<button onclick="addTask('longInput','longList')">Add</button>
+</div>
+
+<ul id="longList"></ul>
+</div>
+
+</div>
+
 <script>
 
 function todayDate(){
@@ -43,21 +261,13 @@ let now=new Date().getTime();
 
 if(listId==="shortList"){
 let data=JSON.parse(localStorage.getItem("shortGoals") || "[]");
-
-tasks=data.filter(task=>{
-return (now - task.date) <= (365 * 24 * 60 * 60 * 1000);
-});
-
+tasks=data.filter(task=> (now - task.date) <= (365*24*60*60*1000));
 localStorage.setItem("shortGoals", JSON.stringify(tasks));
 }
 
 else if(listId==="longList"){
 let data=JSON.parse(localStorage.getItem("longGoals") || "[]");
-
-tasks=data.filter(task=>{
-return (now - task.date) <= (10 * 365 * 24 * 60 * 60 * 1000);
-});
-
+tasks=data.filter(task=> (now - task.date) <= (10*365*24*60*60*1000));
 localStorage.setItem("longGoals", JSON.stringify(tasks));
 }
 
@@ -96,7 +306,7 @@ task.querySelector(".number").innerText=index+1;
 saveTasks(listId);
 }
 
-/* ADD TASK */
+/* CREATE TASK */
 function addTaskFromStorage(text,completed,listId){
 
 let li=document.createElement("li");
@@ -132,7 +342,7 @@ li.classList.add("completed");
 saveTasks(listId);
 }
 
-/* ➕ INSERT (🔥 FIXED HERE) */
+/* INSERT (FIXED) */
 let insertBtn=document.createElement("button");
 insertBtn.innerText="➕";
 insertBtn.className="completeBtn";
@@ -144,7 +354,7 @@ if(!newTask || newTask.trim()==="") return;
 
 let newLi=addTaskFromStorage(newTask,false,listId);
 
-/* 🔥 MAIN FIX */
+/* 🔥 PERFECT INSERT */
 this.closest("li").after(newLi);
 
 updateNumbers(listId);
@@ -153,7 +363,6 @@ updateNumbers(listId);
 /* DELETE */
 let deleteCross=document.createElement("span");
 deleteCross.innerHTML="❌";
-deleteCross.className="deleteCross";
 
 deleteCross.onclick=function(){
 li.remove();
@@ -169,7 +378,6 @@ li.appendChild(actions);
 
 if(completed) li.classList.add("completed");
 
-/* 🔥 IMPORTANT: return li */
 document.getElementById(listId).appendChild(li);
 
 updateNumbers(listId);
@@ -202,3 +410,6 @@ window.onload=function(){
 }
 
 </script>
+
+</body>
+</html>
